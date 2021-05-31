@@ -3,7 +3,7 @@
  *
  *  Created on: May 22, 2021
  *  작성자: 박도영
- *  작성일자: 2021/05/30
+ *  작성일자: 2021/05/31
  *  Homework 12: Sorting & Hashing
  *  Department of Computer Science at Chungbuk National University
  *
@@ -257,15 +257,15 @@ int shellSort(int *a)
 
 	printArray(a);
 
-	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2)
+	for (h = MAX_ARRAY_SIZE/2; h > 0; h /= 2) //간격이 h나는 만큼의 배열끼리 쌍을 이루겠다는 뜻
 	{
-		for (i = 0; i < h; i++)
+		for (i = 0; i < h; i++) //a[0]부터 h만큼 차이나는 쌍을 a[h-1]의 쌍까지 반복
 		{
-			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)
+			for(j = i + h; j < MAX_ARRAY_SIZE; j += h)//간격이 h만큼 나는 쌍끼리 크기 비교해서 교체
 			{
 				v = a[j];
 				k = j;
-				while (k > h-1 && a[k-h] > v)
+				while (k > h-1 && a[k-h] > v) //크기 비교해서 교체하는 과정
 				{
 					a[k] = a[k-h];
 					k -= h;
