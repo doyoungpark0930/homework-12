@@ -41,6 +41,7 @@ int search(int *ht, int key);
 
 int main()
 {
+    printf("2018038077 Do young park\n");
 	char command;
 	int *array = NULL;
 	int *hashtable = NULL;
@@ -267,7 +268,7 @@ int shellSort(int *a)
 				k = j;
 				while (k > h-1 && a[k-h] > v) //크기 비교해서 교체하는 과정
 				{
-					a[k] = a[k-h];
+					a[k] = a[k-h]; //a[k]와 앞쪽으로 h만큼 떺어져있는 배열의 요소와 바꾼다
 					k -= h;
 				}
 				a[k] = v;
@@ -280,33 +281,33 @@ int shellSort(int *a)
 	return 0;
 }
 
-int quickSort(int *a, int n)
+int quickSort(int *a, int n)// recursive방식으로 퀵정렬 ,가장 효율적
 {
 	int v, t;
 	int i, j;
 
 	if (n > 1)
 	{
-		v = a[n-1];
-		i = -1;
-		j = n - 1;
+		v = a[n-1]; //기준점을 정함
+		i = -1; //배열의 첫 요소부터 시작할 인덱스
+		j = n - 1; //배열의 끝 요소부터 시작할 인덱스
 
 		while(1)
 		{
-			while(a[++i] < v);
-			while(a[--j] > v);
+			while(a[++i] < v); //기준점보다 크거나 같은 값이 나올 때 까지 반복
+			while(a[--j] > v); //기준점보다 작거나 같은 값이 나올 떄 까지 반복
 
-			if (i >= j) break;
-			t = a[i];
+			if (i >= j) break; //i가 j보다 크다면 바꿀 필요가 없다는 뜻
+			t = a[i];   //a[j]와 a[i]를 바꾸는 작업
 			a[i] = a[j];
 			a[j] = t;
 		}
-		t = a[i];
+		t = a[i];   //a[i]와 a[n-1]을바꿈> 순서에 맞게 정렬
 		a[i] = a[n-1];
 		a[n-1] = t;
 
-		quickSort(a, i);
-		quickSort(a+i+1, n-i-1);
+		quickSort(a, i);//a[0]부터 a[i-1]까지 다룸
+		quickSort(a+i+1, n-i-1); //a[i+1]부터 마지막 까지 다룸
 	}
 
 
@@ -329,7 +330,7 @@ int hashing(int *a, int **ht)
 		hashtable = *ht;	/* hash table이 NULL이 아닌경우, table 재활용, reset to -1 */
 	}
 
-	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++)
+	for(int i = 0; i < MAX_HASH_TABLE_SIZE; i++) //hash table의 값을 모두 -1로 초기화
 		hashtable[i] = -1;
 
 	/*
@@ -347,21 +348,21 @@ int hashing(int *a, int **ht)
 		/*
 		printf("key = %d, hashcode = %d, hashtable[%d]=%d\n", key, hashcode, hashcode, hashtable[hashcode]);
 		*/
-		if (hashtable[hashcode] == -1)
+		if (hashtable[hashcode] == -1) //전에 방문한 적이 없다면 hashcode의 값을 넣는다
 		{
 			hashtable[hashcode] = key;
-		} else 	{
+		} else 	{ //전에 방문한 적이 있다면
 
 			index = hashcode;
 
-			while(hashtable[index] != -1)
+			while(hashtable[index] != -1) //방문한 적이 없는 hashtable을 찾을때까지 반복
 			{
 				index = (++index) % MAX_HASH_TABLE_SIZE;
 				/*
 				printf("index = %d\n", index);
 				*/
 			}
-			hashtable[index] = key;
+			hashtable[index] = key; //비어있는 hashtable에 key대입
 		}
 	}
 
@@ -375,7 +376,7 @@ int search(int *ht, int key)
 	if(ht[index] == key)
 		return index;
 
-	while(ht[++index] != key)
+	while(ht[++index] != key) //key값을 찾을떄까지 인덱스를 올린다 , 찾으면 반환
 	{
 		index = index % MAX_HASH_TABLE_SIZE;
 	}
